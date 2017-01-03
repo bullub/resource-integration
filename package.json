@@ -1,0 +1,35 @@
+{
+  "name": "resource-integration",
+  "version": "0.0.1",
+  "description": "Based on Node JS. The Resource integration for muti-page of html5.",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "mocha --harmony",
+    "test-cov": "node --harmony node_modules/.bin/istanbul cover ./node_modules/.bin/_mocha -- --reporter dot",
+    "test-travis": "node --harmony node_modules/.bin/istanbul cover ./node_modules/.bin/_mocha --report lcovonly -- --reporter dot"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bullub/atk.git"
+  },
+  "bugs": {
+    "url": "https://github.com/bullub/resource-integration/issues"
+  },
+  "homepage": "https://github.com/bullub/resource-integration#readme",
+  "author": "bullub",
+  "license": "MIT",
+  "files": [
+    "src"
+  ],
+  "devDependencies": {
+    "istanbul": "^0.4.5",
+    "mocha": "^2.0.0",
+    "mz": "^1.0.2"
+  },
+  "engines": {
+    "node": ">= 7.0.0"
+  },
+  "dependencies": {
+    "vinyl": "^0.5.3"
+  }
+}
