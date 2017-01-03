@@ -18,10 +18,10 @@ const RESOURCE_TYPES = {
 //资源的标签生成器
 const RESOURCE_TAG_GENERATORS = {
     0: function (file, buildFile) {
-        return `<script src="${path.relative(file.base, buildFile.path)}"></script>`;
+        return `<script src="${path.relative(path.dirname(file.path), buildFile.path)}"></script>`;
     },
     1: function (file, buildFile) {
-        return `<link rel="stylesheet" href="${path.relative(file.base, buildFile.path)}"/>`;
+        return `<link rel="stylesheet" href="${path.relative(path.dirname(file.path), buildFile.path)}"/>`;
     }
 };
 
@@ -37,7 +37,7 @@ module.exports = {
     getRealFilePath(currentFile, files, srcRoot){
         let filePath,
             fileRealPath,
-            baseDir = currentFile.dirname;
+            baseDir = path.dirname(currentFile.path);
 
         for(let i = 0, len = files.length; i < len; i ++) {
             filePath = files[i] && files[i].trim();

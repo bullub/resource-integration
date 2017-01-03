@@ -19,8 +19,8 @@ const COMBINED_END_REG = /<!--combined-->/i;
 
 //注释内容解析相关正则
 const COMMENT_REGS = [
-    /<!--/ig,
-    /-->/ig
+    /<!--/g,
+    /-->/g
 ];
 
 //资源类型对应的抽取路径的正则表达式
@@ -87,6 +87,10 @@ function resolve(contents, filePath) {
             combinedRecord.endLine = i;
             combinedRecords.push(combinedRecord);
             continue ;
+        }
+
+        if(i === 5) {
+            debugger;
         }
 
         if(resolveComments(contentLines[i], isInComment)) {
@@ -156,22 +160,32 @@ function resolveSingleResource(line, syntaxStack, resourceType) {
         matched = true;
     }
 
-    RegExp.lastIndex = 0;
+    RESOURCE_TAG_REGS[resourceType].lastIndex = 0;
 
     return matched;
 }
 
 function resolveComments(line, isInComment) {
-    let commentCheckIndex = 0;
+    let commentCheckIndex = 0,
+        matched = null;
     if(isInComment) {
         commentCheckIndex = 1;
     }
 
     //顺序并交替查找当前行中的注释标签，最后检查commentCheckIndex的奇偶性
-    //如果是奇数: 表示当前最后没检查到注释的开始
-    //如果是偶数: 表示当前最后没检查到注释的结束
-    while (COMMENT_REGS[commentCheckIndex++ % 2].exec(line));
+    //如果是奇数: 表示当前最后没检查到注释的结束
+    //如果是偶数: 表示当前最后没检查到注释的开始
+    while ((matched = COMMENT_REGS[commentCheckIndex].exec(line))) {
+        let lastIndex = COMMENT_REGS[commentCheckIndex].lastIndex;
+        commentCheckIndex = (commentCheckIndex + 1) % 2;
+        //设置下一个正则的起点为上一次匹配到的位置
+        COMMENT_REGS[commentCheckIndex].lastIndex = lastIndex;
+    }
 
-    //偶数表示没有结束，没结束注释返回0，故取非
-    return !(commentCheckIndex % 2);
+    //重置正则的起点
+    COMMENT_REGS[0].lastIndex = 0;
+    COMMENT_REGS[1].lastIndex = 0;
+
+    //奇数表示没有结束，没结束注释返回1，故只需将原值类型转换为boolean即可
+    return commentCheckIndex === 1;
 }

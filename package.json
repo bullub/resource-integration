@@ -1,6 +1,6 @@
 {
   "name": "resource-integration",
-  "version": "0.0.1",
+  "version": "0.0.5",
   "description": "Based on Node JS. The Resource integration for muti-page of html5.",
   "main": "src/index.js",
   "scripts": {

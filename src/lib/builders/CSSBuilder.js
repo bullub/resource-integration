@@ -7,7 +7,7 @@
 const fs = require("fs");
 const path = require("path");
 const BuildHelper = require("../BuildHelper");
-const CSS_URL_REG = /url\((['"\s])?([^'"]+)\1\)/img;
+const CSS_URL_REG = /url\((['"]?)([^'"\)]+)\1\)/img;
 
 
 module.exports = {
@@ -27,7 +27,7 @@ module.exports = {
                 return ;
             }
             //css构建，需要重写样式中引用的资源路径
-            contents += rewriteResourcesPath(fs.readFileSync(realPath).toString(), realPath, path.join(combinedRecord.srcRoot, combinedRecord.distFile)) + ";";
+            contents += rewriteResourcesPath(fs.readFileSync(realPath).toString(), realPath, path.join(combinedRecord.srcRoot, combinedRecord.distFile)) + "\n";
         });
 
         return {
