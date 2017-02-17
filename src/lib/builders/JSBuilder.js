@@ -25,7 +25,7 @@ module.exports = {
                 return ;
             }
 
-            contents += fs.readFileSync(realPath).toString() + "\n";
+            contents += fs.readFileSync(realPath).toString() + ";\n";
         });
         return {
             contents,

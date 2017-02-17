@@ -27,7 +27,7 @@ module.exports = {
                 return ;
             }
             //css构建，需要重写样式中引用的资源路径
-            contents += rewriteResourcesPath(fs.readFileSync(realPath).toString(), realPath, path.join(combinedRecord.srcRoot, combinedRecord.distFile)) + "\n";
+            contents += rewriteResourcesPath(fs.readFileSync(realPath).toString(), realPath, path.join(combinedRecord.srcRoot, combinedRecord.distFile)) + "\n\n";
         });
 
         return {
