@@ -26,9 +26,9 @@ const COMMENT_REGS = [
 //资源类型对应的抽取路径的正则表达式
 const RESOURCE_TAG_REGS = [
     //匹配js
-    /<script\s+[^>]*src\s*=\s*(['"]?)([^'"]+\.js)\1[^>]*>[^<]*<\/script>/ig,
+    /<script\s+[^>]*src\s*=\s*(['"]?)([^'"]+\.js)(\?.+?)?(#.+?)?\1[^>]*>[^<]*<\/script>/ig,
     //匹配css
-    /<link\s+[^>]*href\s*=\s*(['"]?)([^'"]+\.css)\1[^>]*>/ig
+    /<link\s+[^>]*href\s*=\s*(['"]?)([^'"]+\.css)(\?.+?)?(#.+?)?\1[^>]*>/ig
 ];
 
 //资源类型
