@@ -60,7 +60,7 @@ function build(options) {
         //将目标文件添加到新增的文件列表中
         addedFiles.push(buildFile);
 
-        contentLines[combinedRecord.startLine] = contentLines[combinedRecord.startLine] + "\n" + BuildHelper.getTag(file, buildFile, combinedRecord.type);
+        contentLines[combinedRecord.startLine] = contentLines[combinedRecord.startLine] + "\n" + BuildHelper.getTag(file, buildFile, combinedRecord.type, combinedResult.contents);
 
         contentLines[combinedRecord.endLine] = '';
     });

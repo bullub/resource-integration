@@ -17,11 +17,11 @@ const RESOURCE_TYPES = {
 
 //资源的标签生成器
 const RESOURCE_TAG_GENERATORS = {
-    0: function (file, buildFile) {
-        return `<script src="${path.relative(path.dirname(file.path), buildFile.path)}"></script>`;
+    0: function (file, buildFile, md5) {
+        return `<script src="${path.relative(path.dirname(file.path), buildFile.path)}?_=${md5}"></script>`;
     },
-    1: function (file, buildFile) {
-        return `<link rel="stylesheet" href="${path.relative(path.dirname(file.path), buildFile.path)}"/>`;
+    1: function (file, buildFile, md5) {
+        return `<link rel="stylesheet" href="${path.relative(path.dirname(file.path), buildFile.path)}?_=${md5}"/>`;
     }
 };
 
@@ -84,8 +84,15 @@ module.exports = {
      * @param file {File} 源文件
      * @param buildFile {File} 目标文件
      * @param type {Number} Tag类型
+     * @param contents {string} 文件内容
      */
-    getTag(file, buildFile, type) {
-        return RESOURCE_TAG_GENERATORS[type](file, buildFile);
+    getTag(file, buildFile, type, contents) {
+
+        let md5 = crypto.createHash("md5");
+        md5.update(contents);
+
+        let md5Hex = md5.digest('hex');
+
+        return RESOURCE_TAG_GENERATORS[type](file, buildFile, md5Hex.substring(16, 24));
     }
 };
