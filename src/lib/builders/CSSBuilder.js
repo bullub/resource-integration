@@ -6,7 +6,6 @@
 "use strict";
 const fs = require("fs");
 const path = require("path");
-const BuildHelper = require("../BuildHelper");
 const CSS_URL_REG = /url\((['"]?)([^'"\)]+)\1\)/img;
 
 
@@ -57,7 +56,7 @@ function rewriteResourcesPath(content, currentCssPath, distCssPath) {
     return content.replace(CSS_URL_REG, function(matched, $1, url, index, contents){
 
         //绝对路径和远程路径不重写
-        if(url[0] === '/' || url.startsWith("http://") || url.startsWith("https://") || url.startsWith("://")) {
+        if(url[0] === '/' || url.startsWith("http://") || url.startsWith("https://") || url.startsWith("://") || url.startsWith("data:")) {
             return matched;
         }
 
